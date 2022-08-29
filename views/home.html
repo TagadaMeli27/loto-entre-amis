@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="../static/css/form.css">
+{% endblock %}
+
+{% block body %}
+<main class="container">
+    <div class="form">
+        <div class="form-container active">
+            <!-- Rejoindre une room -->
+            <section class="left">
+                <div class="field">
+                    <label for="room">Nom de la session</label>
+                    <input type="text" name="room" id="room" pattern="[A-Za-z0-9]" title="Ce champs requière uniquement des lettres majuscules ou minuscules ou des chiffres !" placeholder="000000" required>
+                    <i class="fa-solid fa-circle-xmark"></i>
+                </div>
+                <div class="field">
+                    <label for="player">Pseudo</label>
+                    <input type="text" name="player" id="player" minlength="1" pattern="[A-Za-z0-9]" title="Ce champs requière uniquement des lettres majuscules ou minuscules ou des chiffres !" placeholder="Player 1" required>
+                    <i class="fa-solid fa-circle-xmark"></i>
+                </div>
+                <div class="log-btn" id="join">
+                    <span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                        Rejoindre
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </span>
+                </div>
+                <span class="warning"></span>
+            </section>
+            <!-- Swipe -->
+            <section class="right">
+                <button class="btn" id="room_create">Créer une session</button>
+            </section>
+        </div>
+        <div class="form-container">
+            <!-- Swipe -->
+            <section class="left">
+                <button class="btn" id="room_join">Rejoindre une session</button>
+            </section>
+            <!-- Créer une room -->
+            <section class="right">
+                <div class="field">
+                    <label for="player_name">Pseudo</label>
+                    <input type="text" name="player_name" id="player_name" minlength="1" pattern="[A-Za-z0-9]" title="Ce champs requière uniquement des lettres majuscules ou minuscules ou des chiffres !" placeholder="Player 1" required>
+                    <i class="fa-solid fa-circle-xmark"></i>
+                </div>
+                <div class="field-row">
+                    <div class="field">
+                        <label for="cartons">Cartons</label>
+                        <input type="number" name="cartons" id="cartons" min="1" max="6" value="1" required>
+                    </div>
+                    <div class="field">
+                        <label for="modes">Mode de jeu</label>
+                        <select name="modes" id="modes">
+                            <option value="1">1 Ligne</option>
+                            <option value="2">2 Ligne</option>
+                            <option value="3">Carton plein</option>
+                            <option value="0" selected>Alterné</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="field-row">
+                    <div class="field checkbox-field">
+                        <input type="checkbox" name="limited" id="limited">
+                        <label for="limited">
+                            <div class="checkbox"></div>
+                        </label>
+                        <span class="label">Temps limite</span>
+                    </div>
+                    <div class="field disabled">
+                        <label for="time">Temps (s)</label>
+                        <input type="number" name="time" id="time" min="5" value="60" required>
+                    </div>
+                </div>
+                <div class="log-btn" id="create">
+                    <span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                        Créer
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </span>
+                </div>
+                <span class="warning"></span>
+            </section>
+        </div>
+    </div>
+</main>
+{% endblock %}
+
+{% block js %}
+{{ super() }}
+<script src="../static/js/form.js"></script>
+{% endblock %}

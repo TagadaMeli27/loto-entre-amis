@@ -1,0 +1,516 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
+main.container {
+    justify-content: space-between;
+    min-height: 100vh;
+    background-color: #4a4a4e;
+}
+
+.line {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.middle-line {
+    align-items: center;
+}
+
+.last-line {
+    background-color: #ccc;
+    clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
+    padding: 0 15%;
+}
+
+/* Animations */
+@keyframes rotate {
+    from {
+        transform: rotate(0);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Tirage */
+.tirage {
+    position: relative;
+    align-self: center;
+}
+
+.tirage img {
+    position: relative;
+    max-width: 250px;
+    max-height: 250px;
+    width: 100%;
+    height: auto;
+    z-index: 5;
+}
+
+.tirage #number {
+    position: absolute;
+    bottom: 5px;
+    left: calc(50% - 1.5em - 2px);
+    border-radius: 50%;
+    width: 3em;
+    height: 3em;
+    line-height: 3em;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.3em;
+    background-color: lightgreen;
+    transform: scale(0);
+    z-index: 10;
+}
+
+.tirage #number.zoom {
+    transform: scale(1);
+    transition: transform 500ms ease;
+}
+
+.tirage .balls {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform-origin: center;
+    animation: rotate 1000ms linear normal infinite;
+}
+
+.tirage .ball {
+    position: absolute;
+    z-index: 0;
+    top: 10px;
+    left: 10px;
+    display: block;
+    border-radius: 50%;
+    width: 1.5em;
+    height: 1.5em;
+    background-color: #ebcd27;
+}
+
+.tirage .ball:nth-of-type(2) {
+    top: -30px;
+    left: -10px;
+    background-color: #ff9a26;
+}
+
+.tirage .ball:nth-of-type(3) {
+    top: 0px;
+    left: -40px;
+    background-color: #ce53ce;
+}
+
+/* Friends */
+#friends-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    overflow-x: auto;
+    margin: 0 1em;
+}
+
+#friends-container::-webkit-scrollbar {
+    height: 5px;
+}
+
+#friends-container::-webkit-scrollbar-track {
+    background: #37373a;
+    border-radius: 10px;
+}
+
+#friends-container::-webkit-scrollbar-thumb {
+    background: #252525;
+    border-radius: 10px;
+}
+
+#friends-container::-webkit-scrollbar-thumb:hover {
+    background: #ccc;
+}
+
+.friends {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 1.2em 1em 0 1em;
+}
+
+.friends-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #37373a;
+}
+
+.friends-plateau {  /* Sera potentiellement retirer */
+    padding-top: 30px;
+    width: 300px;
+    height: 150px;
+    background-color: #252525;
+    color: whitesmoke;
+}
+
+.friends-pseudo {
+    display: block;
+    padding: 10px;
+    text-align: center;
+    font-style: italic;
+    color: whitesmoke;
+    transform: translateY(-2em);
+}
+
+.progress {
+    padding: .3em .8em;
+    background-color: #37373a;
+    color: whitesmoke;
+    text-align: center;
+}
+
+/* Session */
+div.session-container {
+    padding: 1em;
+    font-size: 1em;
+    background-color: #252525;
+    color: whitesmoke;
+}
+
+div.session-container span#session-name {
+    font-weight: bold;
+    color: #ffe54c;
+}
+
+div.session-container i.fa-solid {
+    margin-top: .5em;
+    padding: .5em;
+    border-radius: 1em;
+    text-align: center;
+    width: 2em;
+    height: 2em;
+    background-color: #4a4a4e;
+}
+
+/* Player infos */
+div.player-infos {
+    padding: 1em;
+    width: 200px;
+    background-color: #252525;
+    color: whitesmoke;
+}
+
+div.player-infos span#player-name {
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+div.player-infos div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: .8em;
+}
+
+/* Goal */
+#goal {
+    color: #252525;
+    background: #ffe54c;
+    border: solid 5px #252525;
+    padding: .6em 1em;
+    font-size: 1.5em;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Plateau */
+div#plateau {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    max-width: 1000px;
+    text-align: center;
+    margin: 2em auto 3em auto;
+}
+
+.card-background {
+    display: inline-block;
+    margin: 5px;
+    padding: 3px;
+    background-color: white;
+    border: solid 6px #ce0808;
+}
+
+.card-background.blue {
+    border: solid 6px #2236e4;
+}
+
+.card-background.green {
+    border: solid 6px #0e700e;
+}
+
+.card-background.yellow {
+    border: solid 6px #ebcd27;
+}
+
+.card-background.orange {
+    border: solid 6px #ff9a26;
+}
+
+.card-background.pink {
+    border: solid 6px #ce53ce;
+}
+
+table.card {
+    border-collapse: collapse;
+    padding: 2px;
+}
+
+table.card td {
+    position: relative;
+    border: solid 1px #ce0808;
+    width: 30px;
+    height: 40px;
+    font-size: 1.5em;
+    font-weight: bold;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.card-background.blue table.card td {
+    border: solid 1px #2236e4;
+}
+
+.card-background.green table.card td {
+    border: solid 1px #0e700e;
+}
+
+.card-background.yellow table.card td {
+    border: solid 1px #ebcd27;
+}
+
+.card-background.orange table.card td {
+    border: solid 1px #ff9a26;
+}
+
+.card-background.pink table.card td {
+    border: solid 1px #ce53ce;
+}
+
+table.card td:not(:empty)::after {
+    content: "";
+    position: absolute;
+    top: calc(25% - 2px);
+    left: 2px;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    transition: opacity 200ms ease;
+}
+
+table.card td:empty::after {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 25px;
+    height: 35px;
+    border-radius: 2px;
+    background-color: #ce0808;
+}
+
+.card-background.blue table.card td:empty::after {
+    background-color: #2236e4;
+}
+
+.card-background.green table.card td:empty::after {
+    background-color: #0e700e;
+}
+
+.card-background.yellow table.card td:empty::after {
+    background-color: #ebcd27;
+}
+
+.card-background.orange table.card td:empty::after {
+    background-color: #ff9a26;
+}
+
+.card-background.pink table.card td:empty::after {
+    background-color: #ce53ce;
+}
+
+table.card td.find:after {
+    opacity: 1;
+}
+
+/* Modals */
+section.modal {
+    position: absolute;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 15;
+}
+
+section.modal.active-modal {
+    display: flex;
+}
+
+section.modal .bandeau {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background-color: #ffe54c;
+    border-top: solid 10px #ffab4c;
+    border-bottom: solid 10px #ffab4c;
+    height: 6em;
+}
+
+section.modal .modal-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #37373a;
+    padding: 1.2em;
+}
+
+section.modal .modal-container p {
+    color: whitesmoke;
+}
+
+section.modal .modal-container .grid-6 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 1em;
+}
+
+section.modal#settings-modal aside {
+    width: 100%;
+    margin-top: 1em;
+}
+
+section.modal .btn-icon {
+    background-color: #252525;
+}
+
+section.modal .modal-container .square {
+    width: 150px;
+    height: 100px;
+    background-color: #ffe54c;
+}
+
+section.modal .modal-container .square.active-color {
+    border: solid 4px whitesmoke;
+}
+
+section.modal .modal-container .square.red {
+    background-color: #ce0808;
+}
+
+section.modal .modal-container .square.blue {
+    background-color: #2236e4;
+}
+
+section.modal .modal-container .square.green {
+    background-color: #0e700e;
+}
+
+section.modal .modal-container .square.yellow {
+    background-color: #ebcd27;
+}
+
+section.modal .modal-container .square.orange {
+    background-color: #ff9a26;
+}
+
+section.modal .modal-container .square.pink {
+    background-color: #ce53ce;
+}
+
+section.modal h1 {
+    padding: 1em 1.2em;
+    font-size: 3em;
+    background-color: #ffe54c;
+    border-radius: .2em;
+}
+
+section.modal aside {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2.5em;
+}
+
+.btn {
+    cursor: pointer;
+    padding: 1em;
+    margin: 0 .5em;
+    flex-basis: 200px;
+    background-color: #252525;
+    color: #ffe54c;
+    border: none;
+    font-size: 1em;
+    font-weight: bold;
+    text-decoration: none;
+    text-align: center;
+    box-shadow: 0px 0px 10px 5px rgba(255, 255, 255, 0.2);
+}
+
+.btn-icon {
+    cursor: pointer;
+    padding: .3em;
+    background-color: #4a4a4e;
+    color: whitesmoke;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.5em;
+    text-align: center;
+}
+
+.btn-icon#rules {
+    color: #66f2d5;
+}
+
+.btn-icon#apply-settings {
+    color: #66f2d5;
+}
+
+.btn:hover, .btn-icon:hover {
+    background-color: #37373a;
+}
+
+.btn.btn-active {
+    background-color: #37373a;
+    color: #ccc;
+}
+
+@media screen and (max-width: 500px) {
+    .middle-line {
+        flex-direction: column;
+    }
+
+    .btn {
+        flex-basis: content;
+    }
+}

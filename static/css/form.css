@@ -1,0 +1,293 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+main.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #4a4a4e;
+    overflow: hidden; /* Fix no scroll content */
+}
+
+.form {
+    position: relative;
+    width: 900px;
+    height: 500px;
+    margin: 2.5em;
+}
+
+.form-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.form-container section {
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    opacity: 0;
+    z-index: 2;
+    background-color: #252525;
+    transition: all 500ms ease;
+}
+
+.form-container section.right {
+    right: 0;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.form-container section.left {
+    left: 0;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+main.container .form-container.active section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.form-container:first-child section:first-child {
+    transform: translateY(100%);
+    flex-direction: column;
+    color: white;
+}
+
+.form-container:first-child section:last-child {
+    transform: translateY(-100%);
+    color: #ffe54c;
+    background: #ffe54c;
+    background: linear-gradient(180deg, #ffe54c 0%, #66f2d5 100%);
+}
+
+.form-container:last-child section:first-child {
+    transform: translateY(-100%);
+    color: #dcbaff;
+    background-color: #dcbaff;
+    background: linear-gradient(0deg, #dcbaff 30%, #66f2d5 100%);
+}
+
+.form-container:last-child section:last-child {
+    transform: translateY(100%);
+    flex-direction: column;
+    color: whitesmoke;
+}
+
+.btn {
+    cursor: pointer;
+    padding: 1em;
+    background-color: #252525;
+    color: inherit;
+    border: none;
+    font-size: 1em;
+    font-weight: bold;
+}
+
+div.field-row {
+    display: flex;
+}
+
+div.field {
+    position: relative;
+    margin: .6em;
+    transform-origin: left;
+    transition: transform 500ms ease;
+}
+
+div.field.checkbox-field {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    margin-top: 0;
+    min-height: 60px;
+}
+
+div.field.disabled {
+    transform: translateX(-10px) scaleX(0);
+}
+
+div.field label {
+    position: absolute;
+    top: -.6em;
+    left: 6px;
+    min-width: max-content;
+    background-color: #252525;
+    font-size: 1em;
+}
+
+div.field .label {
+    font-size: 1em;
+}
+
+div.field input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+div.field input[type="checkbox"] ~ label {
+    position: static;
+    align-self: center;
+    cursor: pointer;
+}
+
+div.field input[type="checkbox"] ~ label .checkbox {
+    position: relative;
+    width: 32px;
+    height: 10px;
+    border-radius: 1em;
+    background-color: #4a4a4e;
+}
+
+div.field input[type="checkbox"] ~ label .checkbox::after {
+    position: absolute;
+    content: "";
+    top: -6px;
+    left: -5px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background-color: whitesmoke;
+    transition: all 200ms ease;
+}
+
+div.field input[type="checkbox"]:checked ~ label .checkbox::after {
+    left: 15px;
+    background-color: #ffe54c;
+}
+
+div.field .fa-circle-xmark {
+    display: block;
+    position: absolute;
+    top: 13px;
+    right: -5px;
+    font-size: 1.2em;
+    cursor: text;
+    z-index: 1;
+    opacity: 0;
+}
+
+div.field input, div.field select {
+    background: none;
+    border: solid 1px #ffe54c;
+    border-radius: 4px;
+    padding: 1em .8em;
+    width: 100%;
+    max-width: 220px;
+    font-size: .9em;
+    caret-color: #ffe54c;
+    color: whitesmoke;
+}
+
+div.field input::placeholder {
+    color: #4a4a4e;
+}
+
+div.field input:focus, div.field select:focus {
+    box-shadow: 0px 0px 6px 0px #ffe54c;
+}
+
+div.field input:not(:placeholder-shown) + i.fa-circle-xmark {
+    opacity: 1;
+    cursor: pointer;
+}
+
+div.field input[type="text"] {
+    padding: 1em 2.3em 1em .8em;
+}
+
+div.field input[type="number"] {
+    width: 70px;
+    text-align: center;
+}
+
+div.field select {
+    width: 130px;
+}
+
+div.field select option {
+    background-color: #252525;
+    padding: 1em .8em;
+}
+
+.log-btn {
+    display: flex;
+    justify-content: center;
+    margin: .6em;
+    padding: .8em 0;
+    font-weight: bold;
+    font-size: 1em;
+    color: #252525;
+    background-color: #ffe54c;
+    cursor: pointer;
+}
+
+.log-btn span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 0 0 calc(100% - 60px);
+    overflow-x: hidden;
+}
+
+.log-btn:hover span {
+    flex-basis: auto;
+}
+
+.fa-solid {
+    margin: 0 .9em;
+}
+
+.warning {
+    margin: .2em;
+    color: #da0000;
+}
+
+/* === Media queries === */
+@media screen and (max-width: 600px) {
+    .form {
+        height: 80%;
+        width: 100%;
+    }
+
+    .form-container section {
+        left: 0;
+        width: 100%;
+        height: 50%;
+        opacity: 0;
+        z-index: 2;
+        background-color: #252525;
+        transition: all 500ms ease;
+    }
+    
+    .form-container section.left {
+        top: 0;
+        border-bottom-left-radius: 0;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+    }
+
+    .form-container section.right {
+        top: 50%;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 20px;
+        border-bottom-left-radius: 20px;
+    }
+}

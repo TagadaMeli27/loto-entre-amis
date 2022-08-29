@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="../static/css/style.css">
+{% endblock %}
+
+{% block body %}
+    <section id="win-modal" class="modal">
+        <div class="bandeau">
+            <h1 id="win-message">Message</h1>
+        </div>
+        <aside>
+            <button id="replay" class="btn">Rejouer</button>
+            <a href="/" class="btn">Quitter</a>
+        </aside>
+    </section>
+    <section id="wait-modal" class="modal">
+        <div class="modal-container">
+            <p>Attente...</p>
+            <p>Partie en cours, veuillez patientez jusqu'à sa fin pour pouvoir jouer !</p>
+        </div>
+    </section>
+    <section id="settings-modal" class="modal">
+        <div class="modal-container">
+            <div class="grid-6">
+                <div class="square red active-color"></div>
+                <div class="square blue"></div>
+                <div class="square green"></div>
+                <div class="square yellow"></div>
+                <div class="square orange"></div>
+                <div class="square pink"></div>
+            </div>
+            <aside>
+                <button class="btn-icon" id="cancel-settings"><i class="fa-solid fa-circle-xmark"></i></button>
+                <button class="btn-icon" id="apply-settings"><i class="fa-solid fa-circle-check"></i></button>
+            </aside>
+        </div>
+    </section>
+    <main class="container column">
+        <!-- Première ligne -->
+        <div class="line">
+            <!-- Conteneur du joueur (gold, pseudo, gain etc) -->
+            <div class="player-infos column">
+                <span id="player-name">Player</span>
+                <span>Tour <span id="player-round">0</span></span>
+                <span>Victoires <span id="player-victory">0</span></span>
+                <div>
+                    <button class="btn-icon" id="player-setting"><i class="fa-solid fa-gear"></i></button>
+                    <button class="btn-icon" id="rules"><i class="fa-solid fa-circle-question"></i></button>
+                </div>
+            </div>
+            <!-- Conteneur des infos des autres joeurs connectés -->
+            <div id="friends-container"></div>
+            <!-- Conteneur des infos de la session / leader board -->
+            <div class="session-container column">
+                <span>Room <span id="session-name"></span></span>
+                <span>
+                    <i class="fa-solid fa-circle-user"></i>
+                    <span id="session-players">4 joueurs</span>
+                </span>
+                <span>
+                    <i class="fa-solid fa-stopwatch"></i>
+                    <span id="session-time">Temps illimité</span>
+                </span>
+                <span>
+                    <i class="fa-solid fa-ticket"></i>
+                    <span id="session-cartons">6 cartons</span>
+                </span>
+            </div>
+        </div>
+
+        <!-- Seconde ligne -->
+        <div class="line middle-line">
+            <button id="bingo" class="btn">Bingo</button>
+            <div class="column">
+                <!-- Objectif de la partie en cours (remplir 1 ligne, 2 lignes ou carton plein) -->
+                <div id="goal">Objectif : 1 Ligne</div>
+                <!-- Image du tirage de la boule -->
+                <div class="tirage">
+                    <img src="../static/svg/loto.svg" alt="machine à loto">
+                    <div class="balls">
+                        <span class="ball"></span>
+                        <span class="ball"></span>
+                        <span class="ball"></span>
+                    </div>
+                    <span id="number"></span>
+                </div> 
+            </div>
+            <button id="ready" class="btn">Prêt</button>
+        </div>
+
+        <!-- Troisième ligne -->
+        <div class="last-line">
+            <!-- Conteneur des cartes du joueur de 1 à 6 -->
+            <div id="plateau"></div>
+        </div>
+    </main>
+{% endblock %}
+
+{% block js %}
+{{ super() }}
+<script type="module" src="../static/js/script.js"></script>
+{% endblock %}
