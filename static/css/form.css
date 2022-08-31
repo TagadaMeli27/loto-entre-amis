@@ -256,7 +256,8 @@ div.field select option {
 }
 
 .warning {
-    margin: .2em;
+    margin: .2em .5em;
+    text-align: center;
     color: #da0000;
 }
 

@@ -11,10 +11,6 @@ const Room = require("./static/js/Room.js");
 
 /**
  * Memo règles du loto
- * 
- * 15 numéro par carton
- * 5 numéro par lignes
- * max 3 numéro de la même dizaine
  * source : https://www.regles-de-jeux.com/regle-du-loto/
  */
 
