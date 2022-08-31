@@ -71,7 +71,7 @@ main.container {
     text-align: center;
     font-weight: bold;
     font-size: 1.3em;
-    background-color: lightgreen;
+    background-color: #66f2d5;
     transform: scale(0);
     z-index: 10;
 }
@@ -401,11 +401,16 @@ section.modal .modal-container {
     justify-content: center;
     align-items: center;
     background-color: #37373a;
+    color: whitesmoke;
     padding: 1.2em;
 }
 
-section.modal .modal-container p {
-    color: whitesmoke;
+section.modal .modal-container a {
+    color: #ffe54c;
+}
+
+section.modal .modal-container a:hover {
+    color: #ffab4c;
 }
 
 section.modal .modal-container .grid-6 {
@@ -418,6 +423,10 @@ section.modal .modal-container .grid-6 {
 section.modal#settings-modal aside {
     width: 100%;
     margin-top: 1em;
+}
+
+section.modal#rules-modal .modal-container {
+    width: 60%;
 }
 
 section.modal .btn-icon {
@@ -516,6 +525,10 @@ section.modal aside {
 }
 
 @media screen and (max-width: 500px) {
+    section.modal#rules-modal .modal-container {
+        width: 95%;
+    }
+
     .middle-line {
         flex-direction: column;
     }

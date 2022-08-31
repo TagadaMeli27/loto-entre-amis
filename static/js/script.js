@@ -247,4 +247,16 @@ window.addEventListener("load", () => {
     for (const color of colors) {
         color.addEventListener("click", switchColorSettings);
     }
+
+    // Rules modal
+    const btn_rules = document.querySelector("#rules");
+    const rules_modal = document.querySelector("#rules-modal");
+    btn_rules.addEventListener("click", () => {
+        rules_modal.classList.add("active-modal");
+    });
+
+    const btn_close_rules = document.querySelector("#close-rules");
+    btn_close_rules.addEventListener("click", () => {
+        rules_modal.classList.remove("active-modal");
+    });
 });
