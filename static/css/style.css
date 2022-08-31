@@ -31,7 +31,6 @@ main.container {
 
 .last-line {
     background-color: #ccc;
-    clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
     padding: 0 15%;
 }
 
@@ -153,7 +152,15 @@ main.container {
     width: 100px;
     height: 100px;
     border-radius: 50%;
-    background-color: #37373a;
+    background-color: #ebcd27;
+}
+
+.friends-avatar.ready {
+    background-color: #66f2d5;
+}
+
+.friends-avatar.wait {
+    background-color: #252525;
 }
 
 .friends-plateau {  /* Sera potentiellement retirer */
@@ -169,6 +176,9 @@ main.container {
     padding: 10px;
     text-align: center;
     font-style: italic;
+    font-weight: bold;
+    background-color: #37373a;
+    border-radius: 2em;
     color: whitesmoke;
     transform: translateY(-2em);
 }
@@ -501,8 +511,8 @@ section.modal aside {
 }
 
 .btn.btn-active {
-    background-color: #37373a;
-    color: #ccc;
+    background-color: #ccc;
+    color: #37373a;
 }
 
 @media screen and (max-width: 500px) {

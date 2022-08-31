@@ -31,4 +31,20 @@ export class Friends {
 
         this.container = friends;
     }
+
+    ready() {
+        this.avatar.classList.add("ready");
+    }
+
+    unready() {
+        this.avatar.classList.remove("ready");
+    }
+
+    wait() {
+        this.avatar.classList.add("wait");    
+    }
+
+    unwait() {
+        this.avatar.classList.remove("wait");
+    }
 }

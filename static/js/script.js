@@ -74,11 +74,22 @@ window.addEventListener("load", () => {
         }
     });
 
+    // A user is ready
+    socket.on("room:ready", (user) => {
+        player.friends[user].ready();
+    });
+
+    // A user is unready
+    socket.on("room:unready", (user) => {
+        player.friends[user].unready();
+    });
+
     // New drawn
     const number_container = document.querySelector("#number");
     socket.on("loto:drawn", (number) => {
         number_container.classList.remove("zoom");
         number_container.innerHTML = number;
+        player.resetReadyFriends();
         setTimeout(() => {
             number_container.classList.add("zoom");
             ready_button.classList.remove("btn-active");
@@ -127,7 +138,7 @@ window.addEventListener("load", () => {
     });
 
     // On reset game
-    socket.on("loto:reset", () => {
+    socket.on("loto:reset", (playingList) => {
         // Change cards
         player.updateCards(plateau);
 
@@ -146,6 +157,9 @@ window.addEventListener("load", () => {
         // Update round
         player.round++;
         updateRound();
+
+        // Update users wait
+        player.playersUnWait(playingList);
 
         // Hide number drawn to reset
         number_container.classList.remove("zoom");
@@ -185,13 +199,13 @@ window.addEventListener("load", () => {
     // Update players list
     const session_players_container = document.querySelector("#session-players");
     const friends_container = document.querySelector("#friends-container");
-    function updatePlayersList(list) {
+    function updatePlayersList(list, playingList) {
         session_players_container.innerHTML = list.length + " joueur" + plurial(list.length);
 
-        player.updateFriends(list, friends_container);
+        player.updateFriends(list, playingList, friends_container);
     }
-    socket.on("room:user", (list) => {
-        updatePlayersList(list);
+    socket.on("room:user", (list, playingList) => {
+        updatePlayersList(list, playingList);
     });
 
     // Add plurial

@@ -82,11 +82,12 @@ export default class ClientPlayer {
         }
     }
 
-    updateFriends(list, parent) {
+    updateFriends(list, playingList, parent) {
         if (Object.keys(this.friends).length === 0) {
             for (const player of list) {
                 if (player != this.name) {
                     this.addFriend(player, parent);
+                    this.isPlayerPlaying(player, playingList);
                 }
             }
         }
@@ -96,6 +97,7 @@ export default class ClientPlayer {
                 for (const player of list) {
                     if (this.friends[player] === undefined && player != this.name) {
                         this.addFriend(player, parent);
+                        this.isPlayerPlaying(player, playingList);
                         break;
                     }
                 }
@@ -113,10 +115,35 @@ export default class ClientPlayer {
         }
     }
 
+    isPlayerPlaying(player, playingList) {
+        if (playingList === undefined) return;
+
+        if (!playingList.includes(player)) {
+            this.friends[player].wait();
+        }
+        else {
+            this.friends[player].unwait();
+        }
+    }
+
+    playersUnWait(list) {
+        for (const player of list) {
+            if (player != this.name) {
+                this.friends[player].unwait();
+            }
+        }
+    }
+
     addFriend(player, parent) {
         let friend = new Friends();
         friend.createFriend(player);
         parent.appendChild(friend.container);
         this.friends[player] = friend;
+    }
+
+    resetReadyFriends() {
+        for (const [_, friend] of Object.entries(this.friends)) {
+            friend.unready();
+        }
     }
 }

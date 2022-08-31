@@ -71,13 +71,13 @@ io.on("connection", (socket) => {
             socket.join(socket.data.room);
             socket.emit("user:game", rooms[socket.data.room]);
             
-            // Emit to others players that a new user has connected to the game
-            socket.to(socket.data.room).emit("room:user", rooms[socket.data.room].players);
-
             // Check if running game
             if (!rooms[socket.data.room].addPlayingPlayer(socket.data.username)) {
                 socket.emit("user:wait");
             }
+
+            // Emit to others players that a new user has connected to the game
+            socket.to(socket.data.room).emit("room:user", rooms[socket.data.room].players, rooms[socket.data.room].playingPlayers);
         }
         else {
             socket.emit("user:redirect");
@@ -93,6 +93,9 @@ io.on("connection", (socket) => {
             socket.emit("user:redirect");
             return;
         }
+
+        // Broadcast this user is ready
+        socket.to(socket.data.room).emit("room:ready", socket.data.username);
 
         // Add a ready player in this room and check if all ready
         if (rooms[socket.data.room].addReadyPlayer(socket.data.username)) {
@@ -113,6 +116,9 @@ io.on("connection", (socket) => {
 
         // Remove a ready player in this room
         rooms[socket.data.room].removeReadyPlayer(socket.data.username);
+
+        // Broadcast this user is ready
+        socket.to(socket.data.room).emit("room:unready", socket.data.username);
     });
 
     // User say bingo
@@ -149,23 +155,23 @@ io.on("connection", (socket) => {
             }
 
             // Emit reset game
-            io.to(socket.data.room).emit("loto:reset");
+            io.to(socket.data.room).emit("loto:reset", rooms[socket.data.room].playingPlayers);
         }
     });
 
     socket.on("disconnect", () => {
-        if (socket.data.username !== undefined) {
+        if (socket.data.username !== undefined && rooms[socket.data.room] !== undefined) {
             rooms[socket.data.room].removePlayer(socket.data.username);
 
             // If empty room, delete it
             if (rooms[socket.data.room].players.length == 0) {
                 delete rooms[socket.data.room];
             }
-            // Else check replay and ready player
+            // Else check replay, ready player and playing players
             else {
                 if (rooms[socket.data.room].isAllReady()) {
                     let number = rooms[socket.data.room].drawn();
-                    io.to(socket.data.room).emit("loto:drawn", number);
+                    socket.to(socket.data.room).emit("loto:drawn", number);
                 }
 
                 if (rooms[socket.data.room].isAllReplay()) {
@@ -174,9 +180,11 @@ io.on("connection", (socket) => {
                     
                     // Check game mode
                     if (rooms[socket.data.room].mode == 0) {
-                        io.to(socket.data.room).emit("loto:goal", rooms[socket.data.room].goal);
+                        socket.to(socket.data.room).emit("loto:goal", rooms[socket.data.room].goal);
                     }
                 }
+
+                // Todo : Si tous les joueurs en train de jouer déco bah go reset la game pour que les joueurs en attente jouent
 
                 // Emit to others players that a user has disconnected the game
                 socket.to(socket.data.room).emit("room:user", rooms[socket.data.room].players);
