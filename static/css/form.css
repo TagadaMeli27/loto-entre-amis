@@ -10,11 +10,22 @@ html, body {
 
 main.container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    color: whitesmoke;
     background-color: #4a4a4e;
     overflow: hidden; /* Fix no scroll content */
+}
+
+main.container h1 {
+    box-shadow: inset 0px -5px 0px 0px #ffe54c;
+}
+
+main.container p {
+    margin: 0;
+    padding: 0 1em;
 }
 
 .form {
