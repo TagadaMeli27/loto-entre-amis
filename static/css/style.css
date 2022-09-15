@@ -26,12 +26,12 @@ main.container {
 }
 
 .middle-line {
+    flex-direction: column;
     align-items: center;
 }
 
 .last-line {
     background-color: #ccc;
-    padding: 0 15%;
 }
 
 /* Animations */
@@ -119,7 +119,7 @@ main.container {
     justify-content: space-between;
     align-items: center;
     overflow-x: auto;
-    margin: 0 1em;
+    padding: 0 1em;
 }
 
 #friends-container::-webkit-scrollbar {
@@ -291,7 +291,7 @@ table.card {
 table.card td {
     position: relative;
     border: solid 1px #ce0808;
-    width: 30px;
+    min-width: 30px;
     height: 40px;
     font-size: 1.5em;
     font-weight: bold;
@@ -481,11 +481,18 @@ section.modal aside {
     margin-top: 2.5em;
 }
 
+.btn-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: .5em 0;
+}
+
 .btn {
     cursor: pointer;
     padding: 1em;
-    margin: 0 .5em;
-    flex-basis: 200px;
+    margin: .25em .5em;
+    width: 200px;
     background-color: #252525;
     color: #ffe54c;
     border: none;
@@ -529,11 +536,22 @@ section.modal aside {
         width: 95%;
     }
 
-    .middle-line {
+    section.modal .modal-container .square {
+        width: 80px;
+    }
+
+    .btn-container {
         flex-direction: column;
     }
 
-    .btn {
-        flex-basis: content;
+    .first-line {
+        flex-wrap: wrap;
+        background-color: #252525;
+    }
+
+    #friends-container {
+        order: 3;
+        width: 100%;
+        background-color: #4a4a4e;
     }
 }

@@ -6,6 +6,7 @@
 {% endblock %}
 
 {% block body %}
+    <!-- Win message modal -->
     <section id="win-modal" class="modal">
         <div class="bandeau">
             <h1 id="win-message">Message</h1>
@@ -15,12 +16,16 @@
             <a href="/" class="btn">Quitter</a>
         </aside>
     </section>
+
+    <!-- Wait message modal -->
     <section id="wait-modal" class="modal">
         <div class="modal-container">
             <p>Attente...</p>
             <p>Partie en cours, veuillez patientez jusqu'à sa fin pour pouvoir jouer !</p>
         </div>
     </section>
+
+    <!-- Settings modal -->
     <section id="settings-modal" class="modal">
         <div class="modal-container">
             <div class="grid-6">
@@ -37,6 +42,8 @@
             </aside>
         </div>
     </section>
+
+    <!-- Rules modal -->
     <section id="rules-modal" class="modal">
         <div class="modal-container">
             <h2>Règles du jeu</h2>
@@ -46,22 +53,27 @@
             <button class="btn-icon" id="close-rules"><i class="fa-solid fa-circle-xmark"></i></button>
         </div>
     </section>
+
+    <!-- Game container -->
     <main class="container column">
-        <!-- Première ligne -->
-        <div class="line">
-            <!-- Conteneur du joueur (gold, pseudo, gain etc) -->
+        <!-- First line -->
+        <div class="line first-line">
+            <!-- Player container -->
             <div class="player-infos column">
                 <span id="player-name">Player</span>
                 <span>Tour <span id="player-round">0</span></span>
                 <span>Victoires <span id="player-victory">0</span></span>
                 <div>
                     <button class="btn-icon" id="player-setting"><i class="fa-solid fa-gear"></i></button>
+                    <a href="/" class="btn-icon"><i class="fa-solid fa-house"></i></a>
                     <button class="btn-icon" id="rules"><i class="fa-solid fa-circle-question"></i></button>
                 </div>
             </div>
-            <!-- Conteneur des infos des autres joeurs connectés -->
+
+            <!-- Other player in the room container -->
             <div id="friends-container"></div>
-            <!-- Conteneur des infos de la session / leader board -->
+
+            <!-- Room information container -->
             <div class="session-container column">
                 <span>Room <span id="session-name"></span></span>
                 <span>
@@ -79,13 +91,13 @@
             </div>
         </div>
 
-        <!-- Seconde ligne -->
+        <!-- Second line -->
         <div class="line middle-line">
-            <button id="bingo" class="btn">Bingo</button>
             <div class="column">
-                <!-- Objectif de la partie en cours (remplir 1 ligne, 2 lignes ou carton plein) -->
+                <!-- Game goal -->
                 <div id="goal">Objectif : 1 Ligne</div>
-                <!-- Image du tirage de la boule -->
+
+                <!-- Picture of drawn -->
                 <div class="tirage">
                     <img src="../static/svg/loto.svg" alt="machine à loto">
                     <div class="balls">
@@ -96,12 +108,17 @@
                     <span id="number"></span>
                 </div> 
             </div>
-            <button id="ready" class="btn">Prêt</button>
+
+            <!-- Buttons ready and bingo -->
+            <div class="btn-container">
+                <button id="ready" class="btn">Prêt</button>
+                <button id="bingo" class="btn">Bingo</button>
+            </div>
         </div>
 
-        <!-- Troisième ligne -->
+        <!-- Third line -->
         <div class="last-line">
-            <!-- Conteneur des cartes du joueur de 1 à 6 -->
+            <!-- Card container (between 1 and 6 cards) -->
             <div id="plateau"></div>
         </div>
     </main>
