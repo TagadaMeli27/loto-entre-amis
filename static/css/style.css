@@ -34,6 +34,10 @@ main.container {
     background-color: #ccc;
 }
 
+.hide {
+    display: none;
+}
+
 /* Animations */
 @keyframes rotate {
     from {

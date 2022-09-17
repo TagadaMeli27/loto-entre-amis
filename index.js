@@ -99,10 +99,18 @@ io.on("connection", (socket) => {
 
         // Add a ready player in this room and check if all ready
         if (rooms[socket.data.room].addReadyPlayer(socket.data.username)) {
+            // If limited time, set an interval timer to drawn numbers
+            if (rooms[socket.data.room].isLimited) {
+                rooms[socket.data.room].intervalId = setInterval(() => {
+                    // Draw a number
+                    let number = rooms[socket.data.room].drawn();
+                    number === null ? io.to(socket.data.room).emit("loto:out") : io.to(socket.data.room).emit("loto:drawn", number);
+                }, rooms[socket.data.room].time);
+            }
+
+            // Draw a number
             let number = rooms[socket.data.room].drawn();
-            // socket.to(room) c'est pour broadcast excepté celui qui envoie
-            // io.to(room) pour broadcast à tous
-            io.to(socket.data.room).emit("loto:drawn", number);
+            number === null ? io.to(socket.data.room).emit("loto:out") : io.to(socket.data.room).emit("loto:drawn", number);
         }
     });
 
@@ -133,6 +141,11 @@ io.on("connection", (socket) => {
         let check = rooms[socket.data.room].checkDrawn(lines);
 
         if (check) {
+            // Clear auto drawn
+            if (rooms[socket.data.room].isLimited) {
+                clearInterval(rooms[socket.data.room].intervalId);
+            }
+
             // Emit to all players in this room that this player has win
             io.to(socket.data.room).emit("loto:win", socket.data.username);
         }
@@ -162,6 +175,11 @@ io.on("connection", (socket) => {
     socket.on("disconnect", () => {
         if (socket.data.username !== undefined && rooms[socket.data.room] !== undefined) {
             rooms[socket.data.room].removePlayer(socket.data.username);
+
+            // Clear auto drawn
+            if (rooms[socket.data.room].isLimited) {
+                clearInterval(rooms[socket.data.room].intervalId);
+            }
 
             // If empty room, delete it
             if (rooms[socket.data.room].players.length == 0) {

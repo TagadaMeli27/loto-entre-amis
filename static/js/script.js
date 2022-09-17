@@ -43,6 +43,8 @@ window.addEventListener("load", () => {
         }
         
         // Others informations
+        player.timeIsLimited = room.isLimited;
+
         player.setGoal(room.goal);
         updateGoal();
         
@@ -87,6 +89,14 @@ window.addEventListener("load", () => {
     // New drawn
     const number_container = document.querySelector("#number");
     socket.on("loto:drawn", (number) => {
+        bingo_button.classList.remove("btn-active");
+
+        // Hide ready button if auto drawn
+        if (player.timeIsLimited) {
+            ready_button.classList.add("hide");
+        }
+
+        // Show drawn number
         number_container.classList.remove("zoom");
         number_container.innerHTML = number;
         player.resetReadyFriends();
@@ -100,6 +110,7 @@ window.addEventListener("load", () => {
     const bingo_button = document.querySelector("#bingo");
     bingo_button.addEventListener("click", () => {
         bingo_button.classList.add("btn-active");
+
         let result = player.checkCards();
         if (result.bingo) {
             socket.emit("user:bingo", result.lines);
@@ -108,13 +119,17 @@ window.addEventListener("load", () => {
             bingo_button.classList.remove("btn-active");
             console.log("Il y a une erreur là :(");
         }
-        // Si c'est pas bon bah pas la peine d'envoyer au serveur ou alors en "fake bingo"
     });
 
     // Someone win
     const win_modal = document.querySelector("#win-modal");
     const win_message = document.querySelector("#win-message");
     socket.on("loto:win", (user) => {
+        // Show ready button if auto drawn
+        if (player.timeIsLimited) {
+            ready_button.classList.remove("hide");
+        }
+
         if (wait_modal.classList.contains("active-modal")) return;
 
         bingo_button.classList.remove("btn-active");
@@ -128,6 +143,13 @@ window.addEventListener("load", () => {
         else {
             win_message.innerHTML = user + " a gagné !";
         }
+        win_modal.classList.add("active-modal");
+    });
+
+    // All number are drawn, it's loose
+    socket.on("loto:out", () => {
+        ready_button.classList.remove("hide");
+        win_message.innerHTML = "Perdu, tous les nombres ont été tirés";
         win_modal.classList.add("active-modal");
     });
 

@@ -56,7 +56,7 @@
                     </div>
                     <div class="field">
                         <label for="modes">Mode de jeu</label>
-                        <select name="modes" id="modes">
+                        <select name="modes" id="modes" required>
                             <option value="1">1 Ligne</option>
                             <option value="2">2 Ligne</option>
                             <option value="3">Carton plein</option>
@@ -74,7 +74,7 @@
                     </div>
                     <div class="field disabled">
                         <label for="time">Temps (s)</label>
-                        <input type="number" name="time" id="time" min="5" value="60" required>
+                        <input type="number" name="time" id="time" min="2" max="30" value="5">
                     </div>
                 </div>
                 <div class="log-btn" id="create">

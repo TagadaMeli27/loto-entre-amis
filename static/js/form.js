@@ -62,21 +62,29 @@ window.addEventListener("load", () => {
         let player_name = document.querySelector("input#player_name").value;
         let carton = document.querySelector("input#cartons").value;
         let mode = document.querySelector("select#modes").value;
+        let time = document.querySelector("input#time").value;
         let limited = check_limited.checked;
 
-        // Vérifie les inputs
+        // Vérifie les inputs obligatoires
         if (player_name != "" && carton != 0 && (0 <= mode < 4)) {
-            // Clear session informations
-            sessionStorage.clear();
+            // Vérifie les inputs facaltatifs
+            if ((limited && (2 <= time <= 30)) || !limited) {
+                // Clear session informations
+                sessionStorage.clear();
 
-            // Envoie les infos au serveur pour vérifications
-            socket.emit("form:create", {
-                player: player_name,
-                carton: carton,
-                mode: mode,
-                limited: limited,
-                time: time,
-            });
+                // Envoie les infos au serveur pour vérifications
+                socket.emit("form:create", {
+                    player: player_name,
+                    carton: carton,
+                    mode: mode,
+                    limited: limited,
+                    time: time,
+                });
+            }
+            else {
+                // Le temps limite est mal rempli
+                create_warning_span.innerHTML = "Si le temps est limité, il doit être compris entre 2 et 30 secondes.";
+            }
         }
         else {
             // Les champs sont mal remplis

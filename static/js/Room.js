@@ -4,7 +4,8 @@ class Room {
         this.nbCartons = form.carton;
         this.mode = form.mode;
         this.isLimited = form.limited;
-        this.time = form.time;
+        this.time = parseInt(form.time) * 1000;
+        this.intervalId = null;
         this.id = this.generateRoomId(6);
         this.round = 1;
         this.readyPlayers = [];

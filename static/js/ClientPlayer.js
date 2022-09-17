@@ -8,6 +8,7 @@ export default class ClientPlayer {
         this.round = null;
         this.victory = 0;
         this.goal = null;
+        this.timeIsLimited = null;
         this.cards = [];
         this.friends = {};
     }
